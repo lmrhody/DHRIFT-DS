@@ -1,7 +1,5 @@
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
-import Image from 'next/image';
-import logo from '../public/images/logos/logo.png';
 import { useTheme } from 'next-themes';
 import { Fade, Drawer } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
@@ -23,14 +21,14 @@ export default function Header({ title, instUser, instRepo, gitUser, gitRepo }) 
     const navLinks = [
         { label: 'Workshops', href: `/workshops/?instUser=${instUser}&instRepo=${instRepo}&user=${gitUser}&repo=${gitRepo}` },
         { label: 'Glossary', href: `/glossary/?instUser=${instUser}&instRepo=${instRepo}&user=${gitUser}&repo=${gitRepo}` },
-        { label: 'About', href: 'https://www.dhrift.org/about' },
+        { label: 'About', href: 'https://digitalscholar.org/about/' },
     ];
 
     const mobileDrawer = (
         <div className="mobile-drawer">
             <div className="mobile-drawer-header">
-                <Link href="http://www.dhrift.org" className="mobile-drawer-logo">
-                    <Image src={logo} alt="DHRIFT" width={200} priority />
+                <Link href="https://digitalscholar.org" className="mobile-drawer-logo ds-wordmark">
+                    Digital Scholar
                 </Link>
                 <button
                     className="mobile-drawer-close"
@@ -72,8 +70,8 @@ export default function Header({ title, instUser, instRepo, gitUser, gitRepo }) 
 
                 {/* Desktop header */}
                 <div className="site-header-inner">
-                    <Link href="http://www.dhrift.org" className="site-header-logo">
-                        <Image src={logo} alt="DHRIFT" width={320} priority />
+                    <Link href="https://digitalscholar.org" className="site-header-logo ds-wordmark">
+                        Digital Scholar
                     </Link>
 
                     <nav className="site-header-nav">

@@ -6,14 +6,14 @@ const TrianglifyBasic = () => {
   const [cellSize, setCellSize] = useState(Math.random() * 40 + 20); // 20-60
   const [variance, setVariance] = useState(Math.random() * 2); // 0-2
   const palettes = [
-    // Primary theme colors
-    ['#2E2E2E', '#3C342F', '#F9976A'], // bark, brown, sun
-    ['#F9F3EF', '#FFFFFF', '#8dd0cd'], // cream, white, sky
-    ['#F9976A', '#F9F3EF', '#8dd0cd'], // sun, cream, sky
+    // Primary theme colors (Digital Scholar)
+    ['#111111', '#1F1F99', '#2929CC'], // black, deep blue, blue
+    ['#F6F6F6', '#FFFFFF', '#7979F2'], // gray, white, light blue
+    ['#2929CC', '#F6F6F6', '#7979F2'], // blue, gray, light blue
     // Variations
-    ['#2E2E2E', '#3C342F', '#1B1621'], // dark theme
-    ['#F9F3EF', '#8dd0cd', '#FFFFFF'], // light theme
-    ['#F9976A', '#8dd0cd', '#F9F3EF'], // accent theme
+    ['#111111', '#1F1F99', '#111111'], // dark theme
+    ['#F6F6F6', '#7979F2', '#FFFFFF'], // light theme
+    ['#DB2C3A', '#7979F2', '#F6F6F6'], // accent theme
   ];
 
   useEffect(() => {

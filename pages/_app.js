@@ -4,7 +4,7 @@ import Script from 'next/script';
 
 // MUI base
 import CssBaseline from '@mui/material/CssBaseline';
-import { StyledEngineProvider } from '@mui/material/styles';
+import { StyledEngineProvider, ThemeProvider as MuiThemeProvider, createTheme } from '@mui/material/styles';
 
 // External styles
 import 'highlight.js/styles/obsidian.css';
@@ -23,6 +23,11 @@ import { GitHubProvider } from '../components/GitHubContext';
 import PyodideProvider from '../components/Wasm/PyodideProvider';
 
 const Footer = dynamic(() => import('../components/Footer'));
+
+// Without this, CssBaseline sets body text to MUI's default Roboto, overriding styles.scss
+const muiTheme = createTheme({
+  typography: { fontFamily: 'var(--font-body)' },
+});
 
 function MyApp({ Component, pageProps }) {
   const [title, setTitle] = useState('');
@@ -99,19 +104,21 @@ function MyApp({ Component, pageProps }) {
         <Script src="https://unpkg.com/react-grab/dist/index.global.js" strategy="afterInteractive" />
       )}
       <StyledEngineProvider injectFirst>
-        <CssBaseline />
-        <ThemeProvider>
-          <main className='container'>
-            <SWRConfig value={{ provider: () => swrCacheProvider }}>
-              <GitHubProvider>
-                <PyodideProvider>
-                  <Component {...pageProps} />
-                </PyodideProvider>
-              </GitHubProvider>
-            </SWRConfig>
-          </main>
-        </ThemeProvider>
-        {!workshopMode && <Footer />}
+        <MuiThemeProvider theme={muiTheme}>
+          <CssBaseline />
+          <ThemeProvider>
+            <main className='container'>
+              <SWRConfig value={{ provider: () => swrCacheProvider }}>
+                <GitHubProvider>
+                  <PyodideProvider>
+                    <Component {...pageProps} />
+                  </PyodideProvider>
+                </GitHubProvider>
+              </SWRConfig>
+            </main>
+          </ThemeProvider>
+          {!workshopMode && <Footer />}
+        </MuiThemeProvider>
       </StyledEngineProvider>
     </>
   );

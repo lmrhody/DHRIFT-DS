@@ -7,15 +7,15 @@ import { ALIGNED_WORKSHOP_BRANCH, createGitHubFetcher } from '../utils/github';
 // Category colors based on programming language/topic
 const getCategoryColor = (language) => {
   const categories = {
-    python: { bg: 'var(--dhrift-teal)', text: '#1B1621', label: 'Python' },
-    jupyter: { bg: 'var(--dhrift-teal)', text: '#1B1621', label: 'Jupyter' },
+    python: { bg: 'var(--color-accent)', text: '#111', label: 'Python' },
+    jupyter: { bg: 'var(--color-accent)', text: '#111', label: 'Jupyter' },
     r: { bg: '#4A90A4', text: '#fff', label: 'R' },
-    javascript: { bg: '#F0DB4F', text: '#1B1621', label: 'JavaScript' },
-    computer: { bg: 'var(--dhrift-gold)', text: '#1B1621', label: 'Command Line' },
+    javascript: { bg: '#F0DB4F', text: '#111', label: 'JavaScript' },
+    computer: { bg: 'var(--color-highlight)', text: '#111', label: 'Command Line' },
     html: { bg: '#E44D26', text: '#fff', label: 'HTML/CSS' },
     sql: { bg: '#336791', text: '#fff', label: 'SQL' },
     git: { bg: '#F05032', text: '#fff', label: 'Git' },
-    default: { bg: 'var(--dhrift-brown)', text: '#fff', label: 'Workshop' },
+    default: { bg: 'var(--color-primary)', text: '#fff', label: 'Workshop' },
   };
   return categories[language?.toLowerCase()] || categories.default;
 };

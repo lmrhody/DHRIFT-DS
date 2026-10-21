@@ -216,3 +216,55 @@ This section is a running record of work on the project. Each entry explains wha
 - **What:** Saved the latest version of this document as a "commit" on the `ds-rebrand` branch, then "pushed" (uploaded) the branch to GitHub.
 - **Why:** A commit is a permanent, labeled snapshot of the project's files, like saving a version of a document with a note about what changed. Pushing copies those snapshots to GitHub, so the work is backed up and others can see it.
 - **Result:** The `ds-rebrand` branch now exists on GitHub at github.com/lmrhody/DHRIFT-DS. It holds this documentation, and the live site is still unchanged.
+
+### October 21, 2026: Phase 2 of the rebrand: Digital Scholar colors and font
+
+- **What:** Changed the site's colors and font to match Digital Scholar. This work is on the `ds-rebrand` branch only.
+- **Decision made:** Use a free font that looks like Digital Scholar's licensed font (Circular XX) for now. The font chosen is **DM Sans**, a free Google font with a similar clean, rounded look. It can be swapped for the real Circular XX later if a license is bought, by changing one line.
+- **Colors changed:**
+
+  | Used for | Before (DHRIFT) | After (Digital Scholar) |
+  |---|---|---|
+  | Page background | Cream | White |
+  | Main color (headings, links, buttons) | Brown | Blue `#2929cc` |
+  | Hover color | Light brown | Brighter blue |
+  | Borders and dividers | Tan | Light gray |
+  | Accent on dark areas | Teal | Light blue |
+  | Highlight (e.g., "Command Line" labels) | Gold | Light red |
+  | Dark areas and text | Purple-black | Near-black |
+
+- **What stayed the same, on purpose:**
+  - The colored labels for each technology (yellow for JavaScript, orange for Git, and so on) are those technologies' own well-known colors. They also suit Digital Scholar's colorful project icons.
+  - Workshop authors can choose a cover color by name (such as "teal" or "gold"). Those choices still work, so a workshop that asked for "teal" stays teal. Only the **default** cover changed, to Digital Scholar black and blue. The decorative triangle patterns on workshop cards also use the new colors.
+- **Behind-the-scenes tidying:** The style code used to refer to colors by hue name ("teal," "brown"). Those references now use role names ("accent," "primary"), and all the actual color values sit in one short list at the top of the style file. Future color changes only need edits to that list.
+- **A bug found and fixed along the way:** The site's chosen fonts had **never actually been loading**, even before this work. Two separate problems caused it:
+  1. The font was requested in a way browsers ignore when other styles come first. The request now sits in the page's header, where browsers reliably follow it.
+  2. The design toolkit the site is built with (called MUI) was quietly applying its own default font to the whole page. It has now been told to use the site's font instead.
+- **How it was checked:** The site was rebuilt and viewed in a browser running in the background. Screenshots were taken of the institute page, the workshops list, and a workshop page. A check confirmed that every piece of visible text on those pages now uses DM Sans.
+- **Result:** The site now has Digital Scholar's colors and a matching font. Logos, the "DHRIFT" name, links, and footer information haven't changed yet. Those are later phases of the plan.
+
+### October 21, 2026: Replaced the DHRIFT logo with the Digital Scholar wordmark
+
+- **What:** Removed the DHRIFT logo image from the top of every page and replaced it with the words **DIGITAL SCHOLAR**, in DM Sans, in all capital letters, in Digital Scholar blue. This kind of text-only logo is called a "wordmark."
+- **Where it appears:**
+  - The top of the landing page, workshops list, and glossary
+  - The slide-out menu on phones (in white, because that menu has a blue background)
+  - The top of workshop pages, in both the newer and older workshop page styles
+- **Links:** Clicking the wordmark now goes to **digitalscholar.org** instead of dhrift.org. The "About" menu item now goes to Digital Scholar's About page.
+- **Accessibility detail:** The words are typed normally ("Digital Scholar") and the style sheet displays them in capitals. Screen readers, used by people who are blind or have low vision, therefore read it as two words rather than spelling out letters.
+- **Also fixed:** The older workshop page style still had a cream background and brown colors left over from DHRIFT, because they were set in a separate style file. They now use the same Digital Scholar colors as the rest of the site.
+- **Not changed yet:** The logo at the bottom of each page (the footer) still says DHRIFT. It sits next to the funding credits for the NEH and CUNY Graduate Center, so it will be changed together with those credits once that decision is made.
+- **How it was checked:** The site was rebuilt and screenshots were taken of the landing page and both workshop page styles to confirm the wordmark looks right.
+- **Important discovery about the site's content:** Most of the words on the landing page aren't stored in this project. Text such as "Learn with DHRIFT.", the description, and the list of workshops is fetched from two other GitHub repositories run by the DHRI-Curriculum organization. Changing the site to be about the Digital Scholar software suite therefore means creating new content for those pages and pointing the site at it, not just editing this project.
+
+### October 21, 2026: Decisions about the site's new content
+
+- **Where the content will live:** In new GitHub repositories (storage folders) on the `lmrhody` GitHub account: one for the landing page settings and text, and one for the workshops. The DHRI-Curriculum repositories, and therefore the live DHRIFT site at app.dhrift.org, will be left untouched.
+- **Workshop material:** The Digital Scholar workshops (for Omeka, Zotero, Tropy, PressForward, and Sourcery) will be built from existing tutorial or workshop materials rather than written from scratch.
+- **The current workshops and glossary:** The existing general workshops (Python, Git, HTML, and others) and the 140-term glossary will stay available alongside the new Digital Scholar workshops.
+
+### October 21, 2026: Saved and uploaded the colors, font, and wordmark
+
+- **What:** Saved the Digital Scholar colors, the DM Sans font, the font-loading fix, and the new wordmark as a commit (a saved snapshot), then pushed (uploaded) it to the `ds-rebrand` branch on GitHub.
+- **Why:** To back up the work and make it viewable on GitHub.
+- **Result:** The changes are stored safely on GitHub in the `ds-rebrand` branch. The live site is still unchanged, because it's only rebuilt from the `main` branch.

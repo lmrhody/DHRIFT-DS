@@ -66,8 +66,8 @@ export default function WorkshopHeaderV2({
       <div className="v2-header-inner">
         {/* Left section - Logo and breadcrumbs */}
         <div className="v2-header-left">
-          <Link href="https://www.dhrift.org" className="v2-header-logo">
-            <span className="v2-header-logo-text">DHRIFT</span>
+          <Link href="https://digitalscholar.org" className="v2-header-logo">
+            <span className="v2-header-logo-text ds-wordmark">Digital Scholar</span>
           </Link>
 
           <nav className="v2-header-nav" aria-label="Breadcrumb">

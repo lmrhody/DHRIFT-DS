@@ -1,41 +1,43 @@
 // DHRIFT v2 Styles - Fresh Build
-// Brand colors extracted from dhrift.org
+// Brand colors extracted from digitalscholar.org
 
 // ============================================
 // CSS CUSTOM PROPERTIES
 // ============================================
 :root {
-  // Brand Colors
-  --dhrift-cream: #FFF9F4;
-  --dhrift-cream-light: #fff;
-  --dhrift-cream-dark: #eee7e1;
-  --dhrift-brown: #614F42;
-  --dhrift-brown-light: #7f6857;
-  --dhrift-brown-dark: #43362d;
-  --dhrift-teal: #98d3d0;
-  --dhrift-teal-muted: rgba(152, 211, 208, 0.25);
-  --dhrift-gold: #d8ac6c;
-  --dhrift-near-black: #1b1621;
-  --dhrift-text: #212529;
-  --dhrift-text-muted: #6c757d;
-  --dhrift-pink: #ffdde4;
-  --dhrift-pink-light: #fff6f8;
+  // Brand Colors (Digital Scholar)
+  --ds-white: #fff;
+  --ds-gray-light: #f6f6f6;
+  --ds-gray: #ebebeb;
+  --ds-black: #111;
+  --ds-text-muted: #666;
+  --ds-blue: #2929cc;
+  --ds-blue-bright: #5050f2;
+  --ds-blue-dark: #1f1f99;
+  --ds-blue-light: #7979f2;
+  --ds-blue-light-muted: rgba(121, 121, 242, 0.15);
+  --ds-red-light: #f4a3a9;
 
   // Semantic aliases
-  --color-bg: var(--dhrift-cream);
-  --color-bg-elevated: var(--dhrift-cream-light);
-  --color-text: var(--dhrift-text);
-  --color-text-muted: var(--dhrift-text-muted);
-  --color-primary: var(--dhrift-brown);
-  --color-primary-hover: var(--dhrift-brown-light);
-  --color-accent: var(--dhrift-teal);
-  --color-accent-muted: var(--dhrift-teal-muted);
-  --color-highlight: var(--dhrift-gold);
-  --color-surface-dark: var(--dhrift-near-black);
+  // Use these in rules below; change the brand by editing the palette above.
+  --color-bg: var(--ds-white);
+  --color-bg-elevated: var(--ds-white);
+  --color-subtle: var(--ds-gray);
+  --color-text: var(--ds-black);
+  --color-text-muted: var(--ds-text-muted);
+  --color-primary: var(--ds-blue);
+  --color-primary-hover: var(--ds-blue-bright);
+  --color-primary-active: var(--ds-blue-dark);
+  // Accent and highlight are light colors: used on dark surfaces and as backgrounds behind dark text
+  --color-accent: var(--ds-blue-light);
+  --color-accent-muted: var(--ds-blue-light-muted);
+  --color-highlight: var(--ds-red-light);
+  --color-surface-dark: var(--ds-black);
 
   // Typography
-  --font-display: 'Bricolage Grotesque', system-ui, sans-serif;
-  --font-body: 'Poppins', system-ui, sans-serif;
+  // DM Sans is a free stand-in for Digital Scholar's licensed font, Circular XX
+  --font-display: 'DM Sans', system-ui, sans-serif;
+  --font-body: 'DM Sans', system-ui, sans-serif;
   --font-mono: 'IBM Plex Mono', 'Fira Code', monospace;
 
   // Spacing
@@ -66,15 +68,15 @@
   --transition-slow: 400ms ease;
 
   // Shadows
-  --shadow-sm: 0 1px 2px rgba(27, 22, 33, 0.05);
-  --shadow-md: 0 4px 12px rgba(27, 22, 33, 0.08);
-  --shadow-lg: 0 8px 24px rgba(27, 22, 33, 0.12);
+  --shadow-sm: 0 1px 2px rgba(17, 17, 17, 0.05);
+  --shadow-md: 0 4px 12px rgba(17, 17, 17, 0.08);
+  --shadow-lg: 0 8px 24px rgba(17, 17, 17, 0.12);
 }
 
 // ============================================
 // FONTS
 // ============================================
-@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700&family=Poppins:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap');
+// DM Sans and IBM Plex Mono are loaded by a <link> in pages/_document.js
 
 // ============================================
 // RESET & BASE
@@ -139,7 +141,7 @@ body {
   top: 0;
   z-index: var(--z-header);
   background: var(--color-bg-elevated);
-  border-bottom: 1px solid var(--dhrift-cream-dark);
+  border-bottom: 1px solid var(--color-subtle);
 
   &--frontmatter {
     // page 1 is always 0% — hide the empty progress track so the header reads as solid
@@ -151,13 +153,13 @@ body {
 
 .v2-header-progress {
   height: 3px;
-  background: var(--dhrift-cream-dark);
+  background: var(--color-subtle);
   overflow: hidden;
 }
 
 .v2-header-progress-bar {
   height: 100%;
-  background: linear-gradient(90deg, var(--dhrift-teal), var(--dhrift-gold));
+  background: linear-gradient(90deg, var(--color-accent), var(--color-highlight));
   transition: width var(--transition-normal);
 }
 
@@ -187,11 +189,19 @@ body {
 }
 
 .v2-header-logo-text {
+  font-size: 1.125rem;
+}
+
+// Digital Scholar wordmark: DM Sans in all caps, used in place of a logo image
+.ds-wordmark {
   font-family: var(--font-display);
-  font-size: 1.25rem;
-  font-weight: 600;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  line-height: 1;
+  white-space: nowrap;
   color: var(--color-primary);
-  letter-spacing: -0.02em;
+  text-decoration: none;
 }
 
 .v2-header-nav {
@@ -213,7 +223,7 @@ body {
   font-size: 0.8125rem;
   color: var(--color-text-muted);
   padding: var(--space-xs) var(--space-sm);
-  background: var(--dhrift-cream-dark);
+  background: var(--color-subtle);
   border-radius: 4px;
 }
 
@@ -231,7 +241,7 @@ body {
 }
 
 .v2-breadcrumb-sep {
-  color: var(--dhrift-cream-dark);
+  color: var(--color-subtle);
   margin: 0 var(--space-xs);
 }
 
@@ -283,25 +293,25 @@ body {
   align-items: center;
   gap: var(--space-sm);
   padding: var(--space-sm) var(--space-md);
-  background: var(--dhrift-brown) !important;
+  background: var(--color-primary) !important;
   border: none !important;
   border-radius: 8px !important;
   cursor: pointer;
   transition: all var(--transition-fast);
-  color: var(--dhrift-cream) !important;
+  color: var(--color-bg) !important;
   flex-shrink: 0;
   font-family: var(--font-body) !important;
   font-size: 0.875rem !important;
   font-weight: 500 !important;
   min-height: 40px;
   white-space: nowrap;
-  box-shadow: 0 2px 8px rgba(97, 79, 66, 0.15) !important;
+  box-shadow: 0 2px 8px rgba(41, 41, 204, 0.15) !important;
 
   &:hover {
-    background: var(--dhrift-brown-light) !important;
-    color: var(--dhrift-cream) !important;
+    background: var(--color-primary-hover) !important;
+    color: var(--color-bg) !important;
     transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(97, 79, 66, 0.2) !important;
+    box-shadow: 0 4px 12px rgba(41, 41, 204, 0.2) !important;
   }
 
   svg {
@@ -323,8 +333,8 @@ body {
     width: 100%;
     max-width: 380px;
     background: #1c1e26 !important;
-    color: var(--dhrift-cream) !important;
-    border-left: 3px solid var(--dhrift-teal) !important;
+    color: var(--color-bg) !important;
+    border-left: 3px solid var(--color-accent) !important;
     box-shadow: -8px 0 32px rgba(0, 0, 0, 0.4) !important;
 
     @media (max-width: 599px) {
@@ -345,7 +355,7 @@ body {
   align-items: center;
   justify-content: space-between;
   padding: var(--space-lg) var(--space-xl);
-  background: linear-gradient(135deg, rgba(152, 211, 208, 0.1) 0%, transparent 100%);
+  background: linear-gradient(135deg, rgba(121, 121, 242, 0.1) 0%, transparent 100%);
   border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
 
@@ -353,7 +363,7 @@ body {
   font-family: var(--font-display);
   font-size: 1.25rem;
   font-weight: 600;
-  color: var(--dhrift-cream);
+  color: var(--color-bg);
   letter-spacing: -0.02em;
 }
 
@@ -362,7 +372,7 @@ body {
   transition: all var(--transition-fast) !important;
 
   &:hover {
-    color: var(--dhrift-cream) !important;
+    color: var(--color-bg) !important;
     background: rgba(255, 255, 255, 0.05) !important;
   }
 }
@@ -382,11 +392,11 @@ body {
   }
 
   &::-webkit-scrollbar-thumb {
-    background: rgba(152, 211, 208, 0.2);
+    background: rgba(121, 121, 242, 0.2);
     border-radius: 4px;
 
     &:hover {
-      background: rgba(152, 211, 208, 0.35);
+      background: rgba(121, 121, 242, 0.35);
     }
   }
 
@@ -424,29 +434,29 @@ body {
   padding: var(--space-md) var(--space-xl);
   cursor: pointer;
   transition: all var(--transition-fast);
-  color: rgba(255, 249, 244, 0.65);
+  color: rgba(255, 255, 255, 0.65);
   border-left: 3px solid transparent;
   position: relative;
 
   &:hover {
     background: rgba(255, 255, 255, 0.03);
-    color: var(--dhrift-cream);
-    border-left-color: rgba(152, 211, 208, 0.3);
+    color: var(--color-bg);
+    border-left-color: rgba(121, 121, 242, 0.3);
 
     .v2-toc-marker {
-      background: var(--dhrift-teal);
+      background: var(--color-accent);
       transform: scale(1.1);
     }
   }
 
   &.active {
-    background: linear-gradient(90deg, rgba(152, 211, 208, 0.12) 0%, transparent 100%);
-    color: var(--dhrift-teal);
-    border-left-color: var(--dhrift-teal);
+    background: linear-gradient(90deg, rgba(121, 121, 242, 0.12) 0%, transparent 100%);
+    color: var(--color-accent);
+    border-left-color: var(--color-accent);
 
     .v2-toc-marker {
-      background: var(--dhrift-teal);
-      box-shadow: 0 0 12px rgba(152, 211, 208, 0.4);
+      background: var(--color-accent);
+      box-shadow: 0 0 12px rgba(121, 121, 242, 0.4);
     }
 
     .v2-toc-text .MuiTypography-root {
@@ -465,7 +475,7 @@ body {
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  background: rgba(255, 249, 244, 0.2);
+  background: rgba(255, 255, 255, 0.2);
   flex-shrink: 0;
   transition: all var(--transition-fast);
   position: relative;
@@ -522,7 +532,7 @@ body {
   padding: var(--space-xs) var(--space-md);
   cursor: pointer;
   transition: all var(--transition-fast);
-  color: rgba(255, 249, 244, 0.45);
+  color: rgba(255, 255, 255, 0.45);
   font-size: 0.875rem;
   position: relative;
 
@@ -538,19 +548,19 @@ body {
   }
 
   &:hover {
-    color: rgba(255, 249, 244, 0.85);
+    color: rgba(255, 255, 255, 0.85);
     background: rgba(255, 255, 255, 0.02);
 
     .v2-toc-submarker {
-      background: var(--dhrift-gold);
+      background: var(--color-highlight);
     }
   }
 
   &.active {
-    color: var(--dhrift-teal);
+    color: var(--color-accent);
 
     .v2-toc-submarker {
-      background: var(--dhrift-teal);
+      background: var(--color-accent);
     }
 
     .MuiTypography-root {
@@ -568,7 +578,7 @@ body {
   width: 5px;
   height: 5px;
   border-radius: 50%;
-  background: rgba(255, 249, 244, 0.25);
+  background: rgba(255, 255, 255, 0.25);
   flex-shrink: 0;
   transition: all var(--transition-fast);
   margin-left: 8px;
@@ -594,7 +604,7 @@ body {
   gap: var(--space-md);
   padding: var(--space-md) var(--space-lg);
   background: var(--color-bg-elevated);
-  border: 1px solid var(--dhrift-cream-dark);
+  border: 1px solid var(--color-subtle);
   border-radius: 8px;
   cursor: pointer;
   transition: all var(--transition-fast);
@@ -743,7 +753,7 @@ body {
   h2 {
     font-size: 1.5rem;
     padding-bottom: var(--space-sm);
-    border-bottom: 2px solid var(--dhrift-cream-dark);
+    border-bottom: 2px solid var(--color-subtle);
 
     @media (min-width: 768px) {
       font-size: 1.75rem;
@@ -767,7 +777,7 @@ body {
   a {
     color: var(--color-primary);
     text-decoration: underline;
-    text-decoration-color: var(--dhrift-teal);
+    text-decoration-color: var(--color-accent);
     text-underline-offset: 2px;
     transition: all var(--transition-fast);
 
@@ -796,11 +806,11 @@ body {
   code:not(pre code) {
     font-family: var(--font-mono);
     font-size: 0.875em;
-    background: rgba(27, 22, 33, 0.08);
-    color: var(--dhrift-near-black);
+    background: rgba(17, 17, 17, 0.08);
+    color: var(--color-surface-dark);
     padding: 0.2em 0.5em;
     border-radius: 4px;
-    border: 1px solid rgba(97, 79, 66, 0.2);
+    border: 1px solid rgba(41, 41, 204, 0.2);
     font-weight: 500;
   }
 
@@ -809,8 +819,8 @@ body {
     font-family: var(--font-mono);
     font-size: 0.875rem;
     line-height: 1.6;
-    background: var(--dhrift-near-black);
-    color: var(--dhrift-cream);
+    background: var(--color-surface-dark);
+    color: var(--color-bg);
     padding: var(--space-lg);
     border-radius: 8px;
     white-space: pre-wrap;
@@ -829,8 +839,8 @@ body {
 
   // Blockquotes
   blockquote {
-    border-left: 4px solid var(--dhrift-teal);
-    background: var(--dhrift-teal-muted);
+    border-left: 4px solid var(--color-accent);
+    background: var(--color-accent-muted);
     padding: var(--space-md) var(--space-lg);
     margin: var(--space-lg) 0;
     border-radius: 0 8px 8px 0;
@@ -851,17 +861,17 @@ body {
   th, td {
     padding: var(--space-sm) var(--space-md);
     text-align: left;
-    border-bottom: 1px solid var(--dhrift-cream-dark);
+    border-bottom: 1px solid var(--color-subtle);
   }
 
   th {
     font-weight: 600;
-    background: var(--dhrift-cream-dark);
+    background: var(--color-subtle);
     color: var(--color-primary);
   }
 
   tr:hover td {
-    background: var(--dhrift-cream-light);
+    background: var(--color-bg-elevated);
   }
 
   // Images
@@ -876,7 +886,7 @@ body {
   hr {
     border: none;
     height: 2px;
-    background: linear-gradient(90deg, var(--dhrift-cream-dark), var(--dhrift-teal), var(--dhrift-cream-dark));
+    background: linear-gradient(90deg, var(--color-subtle), var(--color-accent), var(--color-subtle));
     margin: var(--space-2xl) 0;
   }
 }
@@ -901,11 +911,11 @@ body {
 .image-load-error {
   display: block;
   padding: var(--space-lg);
-  border: 1px dashed var(--dhrift-cream-dark);
+  border: 1px dashed var(--color-subtle);
   border-radius: 8px;
   color: var(--color-text-muted);
   text-align: center;
-  background: var(--dhrift-cream-light);
+  background: var(--color-bg-elevated);
 }
 
 .image-error {
@@ -919,7 +929,7 @@ body {
 // ============================================
 .skeleton-container {
   .MuiSkeleton-root {
-    background-color: var(--dhrift-cream-dark);
+    background-color: var(--color-subtle);
 
     &::after {
       background: linear-gradient(
@@ -938,13 +948,13 @@ body {
 .workshop-footer {
   margin-top: auto;
   background: var(--color-bg-elevated);
-  border-top: 1px solid var(--dhrift-cream-dark);
+  border-top: 1px solid var(--color-subtle);
 }
 
 .footer,
 .footer-workshop {
-  background: var(--dhrift-near-black);
-  color: var(--dhrift-cream);
+  background: var(--color-surface-dark);
+  color: var(--color-bg);
   padding: var(--space-2xl) var(--page-padding);
   text-align: center;
 }
@@ -975,7 +985,7 @@ body {
   p {
     font-size: 0.875rem;
     line-height: 1.6;
-    color: rgba(255, 249, 244, 0.7);
+    color: rgba(255, 255, 255, 0.7);
     margin: 0;
   }
 }
@@ -1028,33 +1038,33 @@ body {
 }
 
 .button-bark {
-  background: var(--dhrift-brown) !important;
+  background: var(--color-primary) !important;
   border: none !important;
-  color: var(--dhrift-cream) !important;
+  color: var(--color-bg) !important;
   text-decoration: none !important;
 
   &:hover {
-    background: var(--dhrift-brown-light) !important;
-    color: var(--dhrift-cream) !important;
+    background: var(--color-primary-hover) !important;
+    color: var(--color-bg) !important;
   }
 }
 
 .button-white {
-  background: var(--dhrift-cream);
-  color: var(--dhrift-brown) !important;
+  background: var(--color-bg);
+  color: var(--color-primary) !important;
   border: 1px solid rgba(255, 255, 255, 0.3);
   text-decoration: none !important;
 
   &:hover {
-    background: var(--dhrift-cream-light);
+    background: var(--color-bg-elevated);
     box-shadow: var(--shadow-md);
-    color: var(--dhrift-brown) !important;
+    color: var(--color-primary) !important;
   }
 }
 
 .button-teal {
-  background: var(--dhrift-teal);
-  color: var(--dhrift-near-black) !important;
+  background: var(--color-accent);
+  color: var(--color-surface-dark) !important;
   text-decoration: none !important;
 
   &:hover {
@@ -1064,11 +1074,11 @@ body {
 
 .button-outline {
   background: transparent;
-  border: 1px solid var(--dhrift-brown);
-  color: var(--dhrift-brown);
+  border: 1px solid var(--color-primary);
+  color: var(--color-primary);
 
   &:hover {
-    background: var(--dhrift-cream-dark);
+    background: var(--color-subtle);
   }
 }
 
@@ -1084,8 +1094,8 @@ body {
     align-items: center !important;
     gap: var(--space-sm) !important;
     padding: var(--space-sm) var(--space-lg) !important;
-    background: linear-gradient(135deg, var(--dhrift-brown) 0%, var(--dhrift-brown-dark) 100%) !important;
-    color: var(--dhrift-cream) !important;
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-active) 100%) !important;
+    color: var(--color-bg) !important;
     border: none !important;
     border-radius: 8px !important;
     font-family: var(--font-body) !important;
@@ -1094,12 +1104,12 @@ body {
     text-transform: none !important;
     cursor: pointer !important;
     transition: all var(--transition-fast) !important;
-    box-shadow: 0 2px 8px rgba(97, 79, 66, 0.2) !important;
+    box-shadow: 0 2px 8px rgba(41, 41, 204, 0.2) !important;
 
     &:hover:not(:disabled) {
-      background: linear-gradient(135deg, var(--dhrift-brown-light) 0%, var(--dhrift-brown) 100%) !important;
+      background: linear-gradient(135deg, var(--color-primary-hover) 0%, var(--color-primary) 100%) !important;
       transform: translateY(-1px) !important;
-      box-shadow: 0 4px 12px rgba(97, 79, 66, 0.25) !important;
+      box-shadow: 0 4px 12px rgba(41, 41, 204, 0.25) !important;
     }
 
     &:disabled {
@@ -1137,8 +1147,8 @@ body {
 .info-box,
 [class*="info-directive"],
 .directive-info {
-  background: var(--dhrift-teal-muted);
-  border-left: 4px solid var(--dhrift-teal);
+  background: var(--color-accent-muted);
+  border-left: 4px solid var(--color-accent);
   padding: var(--space-md) var(--space-lg);
   margin: var(--space-lg) 0;
   border-radius: 0 8px 8px 0;
@@ -1155,7 +1165,7 @@ body {
 .secret-box,
 [class*="secret-directive"],
 .directive-secret {
-  --secret-accent: var(--dhrift-brown);
+  --secret-accent: var(--color-primary);
   --secret-bg: linear-gradient(135deg, #f8f4f0 0%, #efe8e1 100%);
 
   position: relative;
@@ -1163,9 +1173,9 @@ body {
   border-radius: 12px;
   overflow: hidden;
   background: var(--secret-bg);
-  border: 1px solid rgba(97, 79, 66, 0.15);
+  border: 1px solid rgba(41, 41, 204, 0.15);
   box-shadow:
-    0 2px 8px rgba(97, 79, 66, 0.06),
+    0 2px 8px rgba(41, 41, 204, 0.06),
     inset 0 1px 0 rgba(255, 255, 255, 0.8);
 
   // Decorative corner flourish
@@ -1176,7 +1186,7 @@ body {
     right: 0;
     width: 60px;
     height: 60px;
-    background: linear-gradient(135deg, transparent 50%, rgba(97, 79, 66, 0.05) 50%);
+    background: linear-gradient(135deg, transparent 50%, rgba(41, 41, 204, 0.05) 50%);
     pointer-events: none;
   }
 }
@@ -1193,12 +1203,12 @@ body {
   font-family: var(--font-display);
   font-size: 1rem;
   font-weight: 600;
-  color: var(--dhrift-brown);
+  color: var(--color-primary);
   text-align: left;
   transition: all var(--transition-normal);
 
   &:hover {
-    background: rgba(97, 79, 66, 0.05);
+    background: rgba(41, 41, 204, 0.05);
 
     .secret-icon {
       transform: scale(1.1);
@@ -1211,7 +1221,7 @@ body {
 
   &:focus {
     outline: none;
-    box-shadow: inset 0 0 0 2px var(--dhrift-teal);
+    box-shadow: inset 0 0 0 2px var(--color-accent);
   }
 }
 
@@ -1221,7 +1231,7 @@ body {
   justify-content: center;
   width: 36px;
   height: 36px;
-  background: var(--dhrift-brown);
+  background: var(--color-primary);
   border-radius: 50%;
   transition: transform var(--transition-fast);
   flex-shrink: 0;
@@ -1229,7 +1239,7 @@ body {
   .secret-eye {
     width: 18px;
     height: 18px;
-    stroke: var(--dhrift-cream);
+    stroke: var(--color-bg);
     stroke-width: 2;
     stroke-linecap: round;
     stroke-linejoin: round;
@@ -1249,7 +1259,7 @@ body {
   svg {
     width: 100%;
     height: 100%;
-    stroke: var(--dhrift-brown);
+    stroke: var(--color-primary);
     stroke-width: 2;
     stroke-linecap: round;
     stroke-linejoin: round;
@@ -1272,7 +1282,7 @@ body {
 // Revealed state
 .secret--revealed {
   .secret-toggle {
-    border-bottom: 1px solid rgba(97, 79, 66, 0.1);
+    border-bottom: 1px solid rgba(41, 41, 204, 0.1);
   }
 
   .secret-chevron svg {
@@ -1280,10 +1290,10 @@ body {
   }
 
   .secret-icon {
-    background: var(--dhrift-teal);
+    background: var(--color-accent);
 
     .secret-eye {
-      stroke: var(--dhrift-brown-dark);
+      stroke: var(--color-primary-active);
     }
   }
 
@@ -1301,7 +1311,7 @@ body {
 .code-editor,
 [class*="codeeditor-directive"],
 .directive-codeeditor {
-  background: var(--dhrift-near-black);
+  background: var(--color-surface-dark);
   border-radius: 8px;
   overflow: hidden;
   margin: var(--space-lg) 0;
@@ -1340,8 +1350,8 @@ body {
   align-items: center !important;
   gap: var(--space-sm) !important;
   padding: var(--space-sm) var(--space-lg) !important;
-  background: var(--dhrift-brown) !important;
-  color: var(--dhrift-cream) !important;
+  background: var(--color-primary) !important;
+  color: var(--color-bg) !important;
   border-radius: 8px !important;
   box-shadow: var(--shadow-lg) !important;
   font-family: var(--font-body) !important;
@@ -1350,7 +1360,7 @@ body {
   transition: all var(--transition-fast) !important;
 
   &:hover {
-    background: var(--dhrift-brown-light) !important;
+    background: var(--color-primary-hover) !important;
     transform: translateY(-2px);
   }
 
@@ -1383,8 +1393,8 @@ body {
 
   .MuiDrawer-paper {
     background: #0d1117 !important;
-    color: var(--dhrift-cream) !important;
-    border-left: 2px solid var(--dhrift-teal) !important;
+    color: var(--color-bg) !important;
+    border-left: 2px solid var(--color-accent) !important;
     box-shadow: -4px 0 24px rgba(0, 0, 0, 0.3) !important;
   }
 }
@@ -1398,11 +1408,11 @@ body {
   left: 0;
   bottom: 0;
   z-index: 100;
-  background: var(--dhrift-brown);
+  background: var(--color-primary);
   transition: background var(--transition-fast);
 
   &:hover {
-    background: var(--dhrift-teal);
+    background: var(--color-accent);
   }
 }
 
@@ -1423,7 +1433,7 @@ body {
 
   &:hover {
     background: #30363d !important;
-    border-color: var(--dhrift-teal) !important;
+    border-color: var(--color-accent) !important;
   }
 }
 
@@ -1449,13 +1459,13 @@ body {
   transition: all var(--transition-fast);
 
   &:hover {
-    color: var(--dhrift-cream);
+    color: var(--color-bg);
     background: rgba(255, 255, 255, 0.05);
   }
 
   &--active {
-    color: var(--dhrift-cream);
-    border-bottom-color: var(--dhrift-teal);
+    color: var(--color-bg);
+    border-bottom-color: var(--color-accent);
     background: rgba(255, 255, 255, 0.05);
   }
 }
@@ -1504,7 +1514,7 @@ body {
 
 // Editor spinner
 .editor-spinner {
-  color: var(--dhrift-teal) !important;
+  color: var(--color-accent) !important;
 }
 
 // Editor separator (resize handle between editor and output)
@@ -1516,7 +1526,7 @@ body {
   transition: background var(--transition-fast);
 
   &:hover {
-    background: var(--dhrift-teal);
+    background: var(--color-accent);
   }
 }
 
@@ -1617,7 +1627,7 @@ body {
     box-shadow:
       0 6px 12px rgba(0, 0, 0, 0.2),
       0 16px 48px rgba(0, 0, 0, 0.25),
-      0 0 0 2px var(--dhrift-teal),
+      0 0 0 2px var(--color-accent),
       inset 0 1px 0 rgba(255, 255, 255, 0.08);
   }
 }
@@ -1695,12 +1705,12 @@ body {
   }
 
   .cmd .prompt {
-    color: var(--dhrift-teal) !important;
+    color: var(--color-accent) !important;
     font-weight: 600;
   }
 
   .cmd .cursor {
-    background: var(--dhrift-teal) !important;
+    background: var(--color-accent) !important;
     color: #0d1117 !important;
     animation: terminal-blink 1s step-end infinite;
   }
@@ -1807,7 +1817,7 @@ body {
   height: 40px;
   margin: 0 auto;
   border: 3px solid rgba(255, 255, 255, 0.1);
-  border-top-color: var(--dhrift-teal);
+  border-top-color: var(--color-accent);
   border-radius: 50%;
   animation: spin 1s linear infinite;
 }
@@ -1823,7 +1833,7 @@ body {
   button {
     margin-left: var(--space-sm);
     padding: var(--space-xs) var(--space-sm);
-    background: var(--dhrift-teal);
+    background: var(--color-accent);
     color: #fff;
     border: none;
     border-radius: 4px;
@@ -1850,7 +1860,7 @@ body {
     transition: color var(--transition-fast);
 
     &:hover {
-      color: var(--dhrift-cream);
+      color: var(--color-bg);
     }
   }
 }
@@ -1895,7 +1905,7 @@ body {
     color: #8b949e !important;
 
     &:hover {
-      color: var(--dhrift-teal) !important;
+      color: var(--color-accent) !important;
     }
   }
 }
@@ -1928,7 +1938,7 @@ body {
 // QUIZ COMPONENTS - "Test Your Understanding"
 // ============================================
 .quiz {
-  --quiz-accent: var(--dhrift-gold);
+  --quiz-accent: var(--color-highlight);
   --quiz-success: #22c55e;
   --quiz-error: #ef4444;
 
@@ -1937,9 +1947,9 @@ body {
   border-radius: 12px;
   overflow: hidden;
   background: linear-gradient(145deg, #fffcf7 0%, #faf5ed 100%);
-  border: 1px solid rgba(216, 172, 108, 0.3);
+  border: 1px solid rgba(244, 163, 169, 0.3);
   box-shadow:
-    0 4px 16px rgba(216, 172, 108, 0.1),
+    0 4px 16px rgba(244, 163, 169, 0.1),
     inset 0 1px 0 rgba(255, 255, 255, 0.9);
 
   // Subtle pattern overlay
@@ -1948,8 +1958,8 @@ body {
     position: absolute;
     inset: 0;
     background-image:
-      radial-gradient(circle at 20% 80%, rgba(216, 172, 108, 0.08) 0%, transparent 50%),
-      radial-gradient(circle at 80% 20%, rgba(152, 211, 208, 0.08) 0%, transparent 50%);
+      radial-gradient(circle at 20% 80%, rgba(244, 163, 169, 0.08) 0%, transparent 50%),
+      radial-gradient(circle at 80% 20%, rgba(121, 121, 242, 0.08) 0%, transparent 50%);
     pointer-events: none;
   }
 
@@ -1998,8 +2008,8 @@ body {
   align-items: center;
   gap: var(--space-md);
   padding: var(--space-md) var(--space-lg);
-  background: linear-gradient(135deg, rgba(216, 172, 108, 0.15) 0%, rgba(216, 172, 108, 0.05) 100%);
-  border-bottom: 1px solid rgba(216, 172, 108, 0.2);
+  background: linear-gradient(135deg, rgba(244, 163, 169, 0.15) 0%, rgba(244, 163, 169, 0.05) 100%);
+  border-bottom: 1px solid rgba(244, 163, 169, 0.2);
 }
 
 .quiz-icon {
@@ -2008,12 +2018,12 @@ body {
   justify-content: center;
   width: 32px;
   height: 32px;
-  background: var(--dhrift-gold);
+  background: var(--color-highlight);
   border-radius: 8px;
   font-family: var(--font-display);
   font-size: 1.25rem;
   font-weight: 700;
-  color: var(--dhrift-brown-dark);
+  color: var(--color-primary-active);
   flex-shrink: 0;
   transition: all var(--transition-fast);
 }
@@ -2022,7 +2032,7 @@ body {
   font-family: var(--font-display);
   font-size: 1rem;
   font-weight: 600;
-  color: var(--dhrift-brown);
+  color: var(--color-primary);
   letter-spacing: -0.01em;
 }
 
@@ -2051,22 +2061,22 @@ body {
 
   &:hover:not(.quiz-option--disabled) {
     background: rgba(255, 255, 255, 0.95);
-    border-color: rgba(216, 172, 108, 0.3);
+    border-color: rgba(244, 163, 169, 0.3);
     transform: translateX(4px);
 
     .quiz-checkbox {
-      border-color: var(--dhrift-brown);
+      border-color: var(--color-primary);
     }
   }
 
   &.quiz-option--checked {
     background: rgba(255, 255, 255, 0.95);
-    border-color: var(--dhrift-gold);
-    box-shadow: 0 2px 8px rgba(216, 172, 108, 0.15);
+    border-color: var(--color-highlight);
+    box-shadow: 0 2px 8px rgba(244, 163, 169, 0.15);
 
     .quiz-checkbox {
-      background: var(--dhrift-gold);
-      border-color: var(--dhrift-gold);
+      background: var(--color-highlight);
+      border-color: var(--color-highlight);
 
       .quiz-checkmark {
         opacity: 1;
@@ -2093,8 +2103,8 @@ body {
   justify-content: center;
   width: 22px;
   height: 22px;
-  background: var(--dhrift-cream);
-  border: 2px solid rgba(97, 79, 66, 0.3);
+  background: var(--color-bg);
+  border: 2px solid rgba(41, 41, 204, 0.3);
   border-radius: 6px;
   flex-shrink: 0;
   margin-top: 1px;
@@ -2103,7 +2113,7 @@ body {
   .quiz-checkmark {
     width: 14px;
     height: 14px;
-    stroke: var(--dhrift-brown-dark);
+    stroke: var(--color-primary-active);
     stroke-width: 3;
     stroke-linecap: round;
     stroke-linejoin: round;
@@ -2129,7 +2139,7 @@ body {
   }
 
   code {
-    background: rgba(27, 22, 33, 0.08);
+    background: rgba(17, 17, 17, 0.08);
     padding: 0.125em 0.375em;
     border-radius: 4px;
     font-size: 0.875em;
@@ -2142,8 +2152,8 @@ body {
   gap: var(--space-sm);
   margin-top: var(--space-lg);
   padding: var(--space-sm) var(--space-lg);
-  background: var(--dhrift-brown);
-  color: var(--dhrift-cream);
+  background: var(--color-primary);
+  color: var(--color-bg);
   border: none;
   border-radius: 8px;
   font-family: var(--font-body);
@@ -2153,9 +2163,9 @@ body {
   transition: all var(--transition-fast);
 
   &:hover {
-    background: var(--dhrift-brown-light);
+    background: var(--color-primary-hover);
     transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(97, 79, 66, 0.2);
+    box-shadow: 0 4px 12px rgba(41, 41, 204, 0.2);
 
     .quiz-submit-icon {
       transform: translateX(3px);
@@ -2237,7 +2247,7 @@ body {
 .keywords-box,
 [class*="keywords-directive"],
 .directive-keywords {
-  background: var(--dhrift-cream-dark);
+  background: var(--color-subtle);
   padding: var(--space-lg);
   margin: var(--space-lg) 0;
   border-radius: 8px;
@@ -2266,7 +2276,7 @@ body {
 // Breadcrumbs
 .MuiBreadcrumbs-root {
   .MuiBreadcrumbs-separator {
-    color: var(--dhrift-cream-dark);
+    color: var(--color-subtle);
   }
 }
 
@@ -2275,7 +2285,7 @@ body {
   z-index: var(--z-drawer) !important;
 
   .MuiBackdrop-root {
-    background-color: rgba(27, 22, 33, 0.6) !important;
+    background-color: rgba(17, 17, 17, 0.6) !important;
   }
 
   .MuiDrawer-paper {
@@ -2288,7 +2298,7 @@ body {
   align-items: center;
   justify-content: space-between;
   padding-bottom: var(--space-lg);
-  border-bottom: 1px solid rgba(255, 249, 244, 0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   margin-bottom: var(--space-lg);
 }
 
@@ -2429,11 +2439,11 @@ body {
 }
 
 // Theme class just sets accent colors for the pattern - gradients are generative
-.fm-hero--teal .fm-hero-pattern { --pattern-color: var(--dhrift-teal); }
-.fm-hero--gold .fm-hero-pattern { --pattern-color: var(--dhrift-gold); }
+.fm-hero--teal .fm-hero-pattern { --pattern-color: var(--color-accent); }
+.fm-hero--gold .fm-hero-pattern { --pattern-color: var(--color-highlight); }
 .fm-hero--blue .fm-hero-pattern { --pattern-color: #6ba3c7; }
-.fm-hero--brown .fm-hero-pattern { --pattern-color: var(--dhrift-gold); }
-.fm-hero--default .fm-hero-pattern { --pattern-color: var(--dhrift-cream); }
+.fm-hero--brown .fm-hero-pattern { --pattern-color: var(--color-highlight); }
+.fm-hero--default .fm-hero-pattern { --pattern-color: var(--color-bg); }
 
 .fm-hero-content {
   position: relative;
@@ -2468,7 +2478,7 @@ body {
 .fm-description {
   font-size: 1.125rem;
   line-height: 1.7;
-  color: rgba(255, 249, 244, 0.9);
+  color: rgba(255, 255, 255, 0.9);
   margin-bottom: var(--space-xl);
   max-width: 600px;
   margin-left: auto;
@@ -2484,8 +2494,8 @@ body {
   align-items: center;
   gap: var(--space-sm);
   padding: var(--space-md) var(--space-xl);
-  background: var(--dhrift-cream);
-  color: var(--dhrift-brown) !important;
+  background: var(--color-bg);
+  color: var(--color-primary) !important;
   font-family: var(--font-display);
   font-size: 1rem;
   font-weight: 600;
@@ -2500,7 +2510,7 @@ body {
   }
 
   &:hover {
-    background: var(--dhrift-cream-light);
+    background: var(--color-bg-elevated);
     transform: translateY(-2px);
     box-shadow: 0 6px 24px rgba(0, 0, 0, 0.25);
 
@@ -2522,8 +2532,8 @@ body {
   justify-content: center;
   gap: var(--space-lg) var(--space-2xl);
   padding: var(--space-lg) var(--space-xl);
-  background: var(--dhrift-near-black);
-  color: var(--dhrift-cream);
+  background: var(--color-surface-dark);
+  color: var(--color-bg);
 }
 
 .fm-credit-group {
@@ -2537,12 +2547,12 @@ body {
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  color: var(--dhrift-teal);
+  color: var(--color-accent);
 }
 
 .fm-credit-names {
   font-size: 0.9375rem;
-  color: rgba(255, 249, 244, 0.85);
+  color: rgba(255, 255, 255, 0.85);
 }
 
 // Body Content
@@ -2576,7 +2586,7 @@ body {
     bottom: 0;
     width: 2.5rem;
     height: 2px;
-    background: var(--dhrift-teal);
+    background: var(--color-accent);
   }
 }
 
@@ -2603,7 +2613,7 @@ body {
       top: calc(var(--space-sm) + 0.7em); // center bullet on first text line
       width: 6px;
       height: 6px;
-      background: var(--dhrift-teal);
+      background: var(--color-accent);
       border-radius: 50%;
     }
 
@@ -2641,7 +2651,7 @@ body {
 
 .fm-prereq-card {
   background: var(--color-bg-elevated);
-  border: 1px solid var(--dhrift-cream-dark);
+  border: 1px solid var(--color-subtle);
   border-radius: 8px;
   padding: var(--space-lg);
   transition: all var(--transition-fast);
@@ -2654,11 +2664,11 @@ body {
   }
 
   &.required {
-    border-left: 4px solid var(--dhrift-gold);
+    border-left: 4px solid var(--color-highlight);
   }
 
   &.recommended {
-    border-left: 4px solid var(--dhrift-teal);
+    border-left: 4px solid var(--color-accent);
   }
 }
 
@@ -2689,13 +2699,13 @@ body {
 }
 
 .fm-badge-required {
-  background: var(--dhrift-gold);
-  color: var(--dhrift-near-black);
+  background: var(--color-highlight);
+  color: var(--color-surface-dark);
 }
 
 .fm-badge-recommended {
-  background: var(--dhrift-teal);
-  color: var(--dhrift-near-black);
+  background: var(--color-accent);
+  color: var(--color-surface-dark);
 }
 
 .fm-prereq-desc {
@@ -2722,7 +2732,7 @@ body {
   background: var(--color-bg-elevated);
   border-radius: 8px;
   padding: var(--space-lg);
-  border: 1px solid var(--dhrift-cream-dark);
+  border: 1px solid var(--color-subtle);
 }
 
 .fm-meta-title {
@@ -2764,7 +2774,7 @@ body {
       top: calc(var(--space-sm) + 0.55em);
       width: 6px;
       height: 6px;
-      background: var(--dhrift-teal);
+      background: var(--color-accent);
       border-radius: 50%;
     }
 
@@ -2818,14 +2828,14 @@ body {
 
 .fm-linked-card {
   background: var(--color-bg-elevated);
-  border: 1px solid var(--dhrift-cream-dark);
+  border: 1px solid var(--color-subtle);
   border-radius: 8px;
   padding: var(--space-lg);
   transition: all var(--transition-fast);
 
   &:hover {
     box-shadow: var(--shadow-md);
-    border-color: var(--dhrift-teal);
+    border-color: var(--color-accent);
   }
 
   h4 {
@@ -2862,15 +2872,15 @@ body {
   text-align: center;
   padding: var(--space-2xl) 0;
   margin-top: var(--space-xl);
-  border-top: 1px solid var(--dhrift-cream-dark);
+  border-top: 1px solid var(--color-subtle);
 }
 
 // ============================================
 // CODE SYNTAX HIGHLIGHTING (hljs)
 // ============================================
 .hljs {
-  background: var(--dhrift-near-black);
-  color: var(--dhrift-cream);
+  background: var(--color-surface-dark);
+  color: var(--color-bg);
 }
 
 .hljs-comment,
@@ -2882,14 +2892,14 @@ body {
 .hljs-keyword,
 .hljs-selector-tag,
 .hljs-built_in {
-  color: var(--dhrift-teal);
+  color: var(--color-accent);
 }
 
 .hljs-string,
 .hljs-title,
 .hljs-section,
 .hljs-attribute {
-  color: var(--dhrift-gold);
+  color: var(--color-highlight);
 }
 
 .hljs-number,
@@ -2900,11 +2910,11 @@ body {
 }
 
 .hljs-function .hljs-title {
-  color: var(--dhrift-teal);
+  color: var(--color-accent);
 }
 
 .hljs-class .hljs-title {
-  color: var(--dhrift-gold);
+  color: var(--color-highlight);
 }
 
 // ============================================
@@ -2927,11 +2937,11 @@ body {
   border-radius: 12px;
   overflow: hidden;
   box-shadow: var(--shadow-sm);
-  border: 1px solid var(--dhrift-cream-dark);
+  border: 1px solid var(--color-subtle);
   transition: border-color var(--transition-fast), box-shadow var(--transition-fast), transform var(--transition-fast);
 
   &:hover {
-    border-color: var(--dhrift-teal);
+    border-color: var(--color-accent);
     box-shadow: var(--shadow-md);
     transform: translateY(-2px);
 
@@ -2979,7 +2989,7 @@ body {
   font-size: 0.75rem;
   color: var(--color-text-muted);
   padding-left: var(--space-md);
-  border-left: 1px solid var(--dhrift-cream-dark);
+  border-left: 1px solid var(--color-subtle);
 }
 
 .workshop-card-title {
@@ -3072,7 +3082,7 @@ body {
     inset: 0;
     background: linear-gradient(
       135deg,
-      rgba(27, 22, 33, 0.72) 0%,
+      rgba(17, 17, 17, 0.72) 0%,
       rgba(67, 54, 45, 0.62) 100%
     );
   }
@@ -3105,7 +3115,7 @@ body {
     font-family: var(--font-display);
     font-size: clamp(2.5rem, 6vw, 4rem);
     font-weight: 800;
-    color: var(--dhrift-cream);
+    color: var(--color-bg);
     line-height: 1.1;
     margin: 0;
     text-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
@@ -3115,14 +3125,14 @@ body {
     font-family: var(--font-display);
     font-size: clamp(1.125rem, 2.5vw, 1.5rem);
     font-weight: 500;
-    color: var(--dhrift-teal);
+    color: var(--color-accent);
     margin: 0;
     letter-spacing: 0.02em;
   }
 
   p {
     font-size: 1.125rem;
-    color: rgba(255, 249, 244, 0.8);
+    color: rgba(255, 255, 255, 0.8);
     margin: 0;
   }
 }
@@ -3134,7 +3144,7 @@ body {
   p {
     font-size: 1.25rem;
     line-height: 1.65;
-    color: rgba(255, 249, 244, 0.95);
+    color: rgba(255, 255, 255, 0.95);
     text-shadow: 0 1px 12px rgba(0, 0, 0, 0.35);
   }
 }
@@ -3145,8 +3155,8 @@ body {
   align-items: center;
   gap: var(--space-sm);
   padding: var(--space-md) var(--space-xl);
-  background: var(--dhrift-cream);
-  color: var(--dhrift-brown) !important;
+  background: var(--color-bg);
+  color: var(--color-primary) !important;
   font-family: var(--font-display);
   font-size: 1rem;
   font-weight: 600;
@@ -3161,7 +3171,7 @@ body {
   }
 
   &:hover {
-    background: var(--dhrift-cream-light);
+    background: var(--color-bg-elevated);
     transform: translateY(-2px);
     box-shadow: 0 6px 24px rgba(0, 0, 0, 0.25);
 
@@ -3207,7 +3217,7 @@ body {
       bottom: 0;
       width: 3rem;
       height: 2px;
-      background: var(--dhrift-teal);
+      background: var(--color-accent);
     }
   }
 }
@@ -3232,7 +3242,7 @@ body {
 
 .schedule-item {
   padding: var(--space-lg) !important;
-  border-bottom: 1px solid var(--dhrift-cream-dark);
+  border-bottom: 1px solid var(--color-subtle);
 }
 
 // Accordion styling
@@ -3324,8 +3334,8 @@ body {
 .site-header {
   position: relative;
   z-index: 100;
-  background: var(--dhrift-cream);
-  border-bottom: 1px solid var(--dhrift-cream-dark);
+  background: var(--color-bg);
+  border-bottom: 1px solid var(--color-subtle);
 }
 
 .site-header-inner {
@@ -3350,8 +3360,8 @@ body {
     opacity: 0.85;
   }
 
-  img {
-    height: auto;
+  &.ds-wordmark {
+    font-size: 1.5rem;
   }
 }
 
@@ -3365,7 +3375,7 @@ body {
   font-family: var(--font-display);
   font-size: 0.9375rem;
   font-weight: 500;
-  color: var(--dhrift-brown);
+  color: var(--color-primary);
   text-decoration: none;
   padding: var(--space-sm) 0;
   position: relative;
@@ -3378,12 +3388,12 @@ body {
     left: 0;
     width: 0;
     height: 2px;
-    background: var(--dhrift-teal);
+    background: var(--color-accent);
     transition: width 0.2s ease;
   }
 
   &:hover {
-    color: var(--dhrift-brown-dark);
+    color: var(--color-primary-active);
 
     &::after {
       width: 100%;
@@ -3402,15 +3412,15 @@ body {
   z-index: 101;
   width: 44px;
   height: 44px;
-  background: var(--dhrift-brown);
+  background: var(--color-primary);
   border: none;
   border-radius: 8px;
-  color: var(--dhrift-cream);
+  color: var(--color-bg);
   cursor: pointer;
   transition: background 0.2s ease;
 
   &:hover {
-    background: var(--dhrift-brown-light);
+    background: var(--color-primary-hover);
   }
 
   @media (min-width: 768px) {
@@ -3421,8 +3431,8 @@ body {
 // Mobile drawer
 .mobile-drawer-paper {
   width: 280px;
-  background: var(--dhrift-brown) !important;
-  color: var(--dhrift-cream);
+  background: var(--color-primary) !important;
+  color: var(--color-bg);
 }
 
 .mobile-drawer {
@@ -3444,8 +3454,9 @@ body {
 .mobile-drawer-logo {
   display: flex;
 
-  img {
-    height: auto;
+  &.ds-wordmark {
+    font-size: 1.125rem;
+    color: var(--color-bg);
   }
 }
 
@@ -3458,14 +3469,14 @@ body {
   background: transparent;
   border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 8px;
-  color: var(--dhrift-cream);
+  color: var(--color-bg);
   cursor: pointer;
   transition: all 0.2s ease;
 
   &:hover {
     background: rgba(255, 255, 255, 0.1);
-    border-color: var(--dhrift-teal);
-    color: var(--dhrift-teal);
+    border-color: var(--color-accent);
+    color: var(--color-accent);
   }
 }
 
@@ -3480,7 +3491,7 @@ body {
   font-family: var(--font-display);
   font-size: 1.125rem;
   font-weight: 500;
-  color: var(--dhrift-cream);
+  color: var(--color-bg);
   text-decoration: none;
   padding: var(--space-md) var(--space-sm);
   border-radius: 8px;
@@ -3488,7 +3499,7 @@ body {
 
   &:hover {
     background: rgba(255, 255, 255, 0.05);
-    color: var(--dhrift-teal);
+    color: var(--color-accent);
     padding-left: var(--space-md);
   }
 }
@@ -3511,14 +3522,14 @@ body {
 }
 
 .button-bark {
-  background: var(--dhrift-brown) !important;
+  background: var(--color-primary) !important;
   border: none !important;
-  color: var(--dhrift-cream) !important;
+  color: var(--color-bg) !important;
 
   &:hover {
-    background: var(--dhrift-brown-light) !important;
+    background: var(--color-primary-hover) !important;
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(97, 79, 66, 0.3);
+    box-shadow: 0 4px 12px rgba(41, 41, 204, 0.3);
   }
 }
 
