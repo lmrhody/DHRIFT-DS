@@ -171,3 +171,22 @@ This section is a running record of work on the project. Each entry explains wha
 - **What:** Told Git (the tool that tracks changes to the project) who is making changes. The name was set to `lmrhody` and the email to `lisarhody.gc@gmail.com`.
 - **Why:** Git stamps every saved change (a "commit") with a name and email. Without them, Git won't let you save changes, so they can't be sent ("pushed") to GitHub.
 - **Result:** The setting applies only to this project, not to other projects on this computer. The name and email will be publicly visible on GitHub for any change that is pushed. Because the email is the one linked to the GitHub account, changes will show up on that GitHub profile.
+
+### October 21, 2026: Built the site and ran it on this computer
+
+- **What:** Built the website, then started a small local web server so the finished site could be viewed in a browser at **http://localhost:3000**. "localhost" means "this computer," so the site is private and only visible on this machine.
+- **Why:** To see the site working exactly as it will appear when published, before making any changes.
+- **How:** The build turns the project into ready-made web pages in the `out` folder. Those pages are named like `inst.html`, but the site's links leave off the `.html` (for example `/inst`). GitHub Pages fills in the `.html` automatically, so a small tool called `serve` was used locally because it does the same thing. The commands are:
+
+  ```bash
+  bun run build
+  bunx serve@14.2.4 out -l 3000
+  ```
+
+  Then open **http://localhost:3000** in a web browser. To stop the server, go to the Terminal window running it and press `Control` + `C`.
+
+- **Result:** The build succeeded and every main page (home, institute, workshops, glossary, v2) loaded. The home page automatically sends visitors to the sample DHRI institute, whose content is fetched live from GitHub.
+- **Things to know:**
+  - The site needs an internet connection, even when running locally, because it fetches workshop content from GitHub each time.
+  - On the live site, GitHub requests use a special read-only access key. This computer doesn't have that key, so GitHub limits it to about 60 requests per hour. If pages stop loading content after a lot of clicking around, waiting an hour fixes it.
+  - For working on the site's code, `bun run dev` is a better choice (see Part 3) because it updates the page automatically as files change. The steps above show the final, published version.
