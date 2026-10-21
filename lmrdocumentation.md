@@ -165,3 +165,9 @@ This section is a running record of work on the project. Each entry explains wha
 - **What:** Added this "Ongoing Work Log" section.
 - **Why:** To keep a clear, continuous record of each step of the work for readers who aren't programmers.
 - **Result:** Every future step will get a dated entry here. If a step changes something described earlier in this document (for example, fixing the R coding panel), that earlier section will be updated too, so the whole document stays accurate.
+
+### October 21, 2026: Set up Git identity for this project
+
+- **What:** Told Git (the tool that tracks changes to the project) who is making changes. The name was set to `lmrhody` and the email to `lisarhody.gc@gmail.com`.
+- **Why:** Git stamps every saved change (a "commit") with a name and email. Without them, Git won't let you save changes, so they can't be sent ("pushed") to GitHub.
+- **Result:** The setting applies only to this project, not to other projects on this computer. The name and email will be publicly visible on GitHub for any change that is pushed. Because the email is the one linked to the GitHub account, changes will show up on that GitHub profile.
