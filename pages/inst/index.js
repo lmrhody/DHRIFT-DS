@@ -193,6 +193,7 @@ export default function Institute(props) {
                         gitRepo={props.gitRepo}
                         instUser={props.instGitUser}
                         instRepo={props.instGitRepo}
+                        include={parsedYAML.workshops}
                     />
                 </div>
             )}

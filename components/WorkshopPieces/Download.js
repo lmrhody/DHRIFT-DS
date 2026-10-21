@@ -1,6 +1,7 @@
 import Button from '@mui/material/Button';
 import DownloadIcon from '@mui/icons-material/Download';
 import { useState } from 'react';
+import { localizeGitHubUrl } from '../../utils/github';
 
 export default function Download(props) {
     const allUploads = props.allUploads;
@@ -35,7 +36,7 @@ export default function Download(props) {
 
             // Download each file using the raw download_url
             for (const file of filteredUploads) {
-                const response = await fetch(file.download_url);
+                const response = await fetch(localizeGitHubUrl(file.download_url));
                 if (!response.ok) {
                     throw new Error(`Could not download ${file.name}`);
                 }

@@ -268,3 +268,114 @@ This section is a running record of work on the project. Each entry explains wha
 - **What:** Saved the Digital Scholar colors, the DM Sans font, the font-loading fix, and the new wordmark as a commit (a saved snapshot), then pushed (uploaded) it to the `ds-rebrand` branch on GitHub.
 - **Why:** To back up the work and make it viewable on GitHub.
 - **Result:** The changes are stored safely on GitHub in the `ds-rebrand` branch. The live site is still unchanged, because it's only rebuilt from the `main` branch.
+
+### October 21, 2026: Created placeholder workshops for the Digital Scholar software
+
+- **What:** Created a new workshops folder (a repository) called `ds-workshops` with a placeholder ("demo") workshop for each of the five Digital Scholar tools:
+
+  | Workshop | File | Planned lessons |
+  |---|---|---|
+  | Omeka | `omeka.md` | Getting started; items and collections; exhibits |
+  | Zotero | `zotero.md` | Getting started; collecting sources; organizing your library; citing and sharing |
+  | Tropy | `tropy.md` | Getting started; importing and organizing photos; describing your sources |
+  | PressForward | `pressforward.md` | Getting started; gathering content; reviewing and publishing |
+  | Sourcery | `sourcery.md` | Making a request; receiving and managing materials |
+
+- **Why:** Real lesson content for these tools hasn't been written yet. The placeholders let the site show the full set of Digital Scholar workshops now, and give future authors a ready-made structure to fill in.
+- **What each placeholder contains:**
+  - A front page with the workshop title, a short description taken from Digital Scholar's own wording, learning goals, and links to the tool's official website and documentation. All the links were checked and work.
+  - A notice at the top saying the workshop is a placeholder and its content is in development.
+  - A page for each planned lesson, marked "Placeholder" with a one-sentence note on what it will cover.
+  - A sample quiz question and key terms, showing authors how those features work.
+- **How they're built:** Each workshop is a single text file in the DHRIFT workshop format (Markdown). The details between the `---` lines at the top fill in the workshop's front page, and each heading starting with `#` becomes a new page. A `README.md` file explains this for future authors.
+- **How they were checked:** Each file was run through the same tools the site uses to read workshops. All five were read correctly, including their front-page details, pages, quizzes, and key terms.
+- **Where it is now:** The folder is at `/Users/lmrhody/ds-workshops` on this computer and saved as its first commit. It isn't on GitHub yet. The site reads workshops from GitHub, so the placeholders will appear on the site once this folder is uploaded there and the site is pointed at it.
+
+### October 21, 2026: Set up a private, local-only preview of the new content
+
+- **The problem:** The site normally fetches its landing page text and workshops from GitHub, and only from **public** repositories. The Digital Scholar content isn't ready to be public.
+- **The solution, "local mode":** A new way to run the site on this computer that reads the Digital Scholar content from folders on this computer instead of GitHub. Nothing is uploaded or made public.
+- **How it works:**
+  1. A small helper program, the **local content server**, pretends to be GitHub. It hands the site files from two folders on this computer:
+     - `/Users/lmrhody/ds-site`: the landing page settings (`config.yml`)
+     - `/Users/lmrhody/ds-workshops`: the five placeholder workshops
+  2. In local mode, the site sends requests for the made-up GitHub account name **`local`** to that helper instead of GitHub. Everything else, such as the existing DHRI workshops, still comes from the real GitHub.
+  3. The home page automatically opens the Digital Scholar landing page in local mode.
+- **Safety:** The helper only shares those two folders, never hidden files or anything else on the computer. It only accepts connections from this computer, and only answers the local preview site, so other websites open in your browser can't read your files through it. Local mode is never switched on when the public site is built, so the live site isn't affected.
+- **New landing page text** (in `ds-site/config.yml`):
+  - Heading: "Learn the Digital Scholar Suite."
+  - Under the heading: "Hands-on workshops for Omeka, Zotero, Tropy, PressForward, and Sourcery."
+  - A description based on Digital Scholar's mission statement that introduces each of the five tools
+  - A button: "Visit Digital Scholar," linking to digitalscholar.org
+- **How to use it:** Open Terminal, go to the `DHRIFT-DS` folder, and type:
+
+  ```bash
+  bun run dev:local
+  ```
+
+  Wait until it says "Ready," then open **http://localhost:3000**. Edits saved to any file in the two content folders show up when you refresh the page. To stop it, press `Control` + `C` in Terminal. (A small floating button appears at the bottom of pages in this mode. It's a developer tool, not part of the site.)
+- **Two fixes made while testing:**
+  - Each placeholder workshop began with an empty "Introduction" page, because the site turns anything above a workshop's first heading into a page. The hidden note for authors was moved into the settings at the top of each file, which removed the empty page.
+  - Workshops that don't choose a cover color were falling back to teal rather than the Digital Scholar black and blue. They now use the Digital Scholar colors. This also applies to existing DHRI workshops that never chose a color.
+- **How it was checked:** The landing page and the Zotero workshop were opened in a background browser and screenshotted. They showed the new heading, description, button, workshop cards, cover, and lesson pages. The helper was also tested to confirm it refuses requests for files outside the two folders.
+- **Result:** The Digital Scholar version of the site, with its own landing page and the five placeholder workshops, can now be previewed privately on this computer. The two content folders are saved as commits on this computer only. They haven't been uploaded anywhere.
+- **Still to do:**
+  - Show the existing DHRI workshops alongside the new ones (decided earlier). The site can currently read workshops from only one place at a time, so this needs a further change.
+  - The footer still shows the DHRIFT logo and the NEH and CUNY credits.
+
+### October 21, 2026: One shared workshop directory, and a sample institute
+
+#### Part 1: DHRI workshops moved next to the Digital Scholar workshops
+
+- **What:** Copied all of the existing DHRI workshops into the `ds-workshops` folder, alongside the five Digital Scholar placeholders. Their pictures (`images`), downloadable practice files (`uploads`), and notebooks came too, so the lessons work as before.
+- **Why:** So there is a single, **unified directory** of workshops that any site or institute page can draw from.
+- **Credit:** The `ds-workshops` README records that these workshops came from the DHRI-Curriculum/workshops repository (as of August 10, 2026), were developed by the DHRI at the CUNY Graduate Center, and list their authors in each file.
+- **Note:** This is a copy. Future changes the DHRI team makes to their workshops won't appear here automatically.
+- **Four workshops are hidden on purpose:** Their DHRI authors marked them "not published": Catch Our DHRIFT, Introduction to R, Mapping With JavaScript, and Databases and SQL. The site hides them, just as the live DHRI site does. Changing `published: false` in a file shows it.
+- **Small fix:** The workshop list now shows only workshop files. Before this, other files in the folder (such as a `tracks.yaml` settings file) would have appeared as broken workshop cards.
+
+#### Part 2: The demonstration institute, rebuilt as a sample Digital Scholar institute
+
+- **Background:** The earlier site had a "See a Demonstration Institute" button. It led to an **institute page**, a landing page for a specific workshop event, with event details, a day-by-day schedule, and the event's workshops. The feature was still in the site's code. It is driven entirely by the settings file (`config.yml`) of the institute.
+- **What was built:** A new folder, `ds-sample-institute`, holding a sample event called "Digital Scholar Summer Workshop (Sample)." Its settings file has a plain-language note beside every setting, so anyone can copy the folder and make their own institute. It includes:
+  - The event name, dates (June 14 to 16, 2027, as an example), and venue ("Online")
+  - An introduction paragraph
+  - A "Details" panel with organizers, sponsors, contacts, dates, venue, and a longer description. Digital Scholar's public contact address is used as a placeholder.
+  - A three-day schedule of eight sessions. Each session can link to a workshop.
+  - A chosen set of seven workshops: the five Digital Scholar tools plus Data Literacies and HTML & CSS
+- **New feature, choosing workshops:** Institutes can now list which workshops from the shared directory they want, in the order they want, using a `workshops:` list in their settings file. Without the list, every workshop is shown. This is what lets many different institutes draw on one shared directory.
+- **The landing page button** now reads "See a Sample Institute" and opens the sample. The landing page description also now mentions the DHRI workshops.
+- **Schedule links fixed:** Schedule entries linked to the older workshop page style and an old version of the content, which would display wrongly. They now open the newer style, the same one the workshop cards use.
+
+#### Part 3: Local mode improvements
+
+- **New folders are picked up automatically:** In local mode, the site can now see **any folder next to `DHRIFT-DS` whose name starts with `ds-`**. To make another institute, copy `ds-sample-institute` to a new folder such as `ds-my-institute` and open `http://localhost:3000/inst?instUser=local&instRepo=ds-my-institute`. No settings need changing. Folders without the `ds-` prefix, and hidden files, are still never shared.
+- **Images fixed:** Pictures in workshops weren't appearing in local mode. The site uses a browser security setting (needed for the in-browser coding tools) that blocks pictures from another address unless that address says it's allowed. GitHub says so; the local helper didn't. It now does, for the local site only.
+
+#### How it was checked
+
+The landing page, the sample institute, the Zotero, Data Literacies, and Catch Our DHRIFT workshops were opened in a background browser. The checks confirmed:
+
+- the landing page lists both sets of workshops and its button opens the sample institute
+- the institute shows its heading, dates, all six Details sections, the three schedule days, and exactly its seven chosen workshops in order
+- each schedule link points to the right workshop
+- workshop pictures load
+
+**Where things are now:** The three content folders (`ds-site`, `ds-workshops`, `ds-sample-institute`) are saved as commits on this computer only. The site code changes aren't committed yet.
+
+### October 21, 2026: Added project logos to the workshop cards
+
+- **What:** Each Digital Scholar workshop card (Omeka, Zotero, Tropy, PressForward, Sourcery) now shows that project's logo beside its title, on the landing page, the workshops page, and institute pages.
+- **Where the logos came from:** Digital Scholar's own homepage (digitalscholar.org). They are stored in `ds-workshops/images/logos/`, and the `ds-workshops` README notes that they belong to their projects. Using them on a published site falls under the permission question raised in the rebrand plan.
+- **How it works, so it can be reused:** A workshop can now include a `logo:` line in its front-page details, for example `logo: /images/logos/zotero.png`. If it has one, its card shows the logo; if not, the card looks as before. Any future workshop can get a logo the same way, with no code changes.
+- **Accessibility detail:** The logo is marked as decorative, because the title right beside it already names the project. Screen readers therefore don't announce the name twice.
+- **How it was checked:** The landing page and sample institute were opened in a background browser, which confirmed all five logos load. A screenshot confirmed they display neatly beside the titles.
+
+### October 21, 2026: Checked, saved, and uploaded the site changes
+
+- **What:** Ran a full build of the site, then saved the code changes from the last several steps as a commit and pushed (uploaded) it to the `ds-rebrand` branch on GitHub. The commit covers local mode, workshop selection for institutes, the schedule link fix, the default cover color, and card logos.
+- **Checks before saving:**
+  - The build finished without errors.
+  - The built site contains no trace of local mode, so the published version will keep reading from GitHub.
+  - The built site was opened in a background browser in normal (not local) mode. It still showed the original DHRI landing page and its workshop cards, confirming that nothing broke for the existing site.
+- **Not uploaded:** The three content folders (`ds-site`, `ds-workshops`, `ds-sample-institute`) stay on this computer only, as planned.

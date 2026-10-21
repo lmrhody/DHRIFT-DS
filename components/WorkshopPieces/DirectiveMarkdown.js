@@ -10,7 +10,7 @@ import remarkRehype from 'remark-rehype';
 import rehypeRaw from 'rehype-raw';
 import rehypeDhriftHighlight from '../../utils/rehypeDhriftHighlight';
 import rehypeReact from 'rehype-react';
-import { ALIGNED_WORKSHOP_BRANCH, normalizeKnownAssetUrl } from '../../utils/github';
+import { ALIGNED_WORKSHOP_BRANCH, localizeGitHubUrl, normalizeKnownAssetUrl } from '../../utils/github';
 
 // Import directive components
 import {
@@ -148,7 +148,7 @@ function CustomImage({ src, alt, gitUser, gitRepo, gitFile, gitBranch = ALIGNED_
     imageSrc = `https://raw.githubusercontent.com/${gitUser}/${gitRepo}/${gitBranch}/${cleanPath}`;
   }
 
-  return <img src={imageSrc} alt={alt || ''} loading="lazy" />;
+  return <img src={localizeGitHubUrl(imageSrc)} alt={alt || ''} loading="lazy" />;
 }
 
 /**

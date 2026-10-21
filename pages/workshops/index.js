@@ -34,6 +34,8 @@ export default function Workshops(props) {
     const { data: config } = useSWR(shouldFetch ? builtURL : null, fetcher,
         { revalidateOnFocus: false, revalidateOnReconnect: false, revalidateIfStale: false })
 
+    const includedWorkshops = config ? jsyaml.load(config)?.workshops : undefined;
+
     useEffect(() => {
         if (config && (!props.gitUser || !props.gitRepo)) {
             const parsedConfig = jsyaml.load(config);
@@ -65,7 +67,7 @@ export default function Workshops(props) {
                     <div className='inst-workshops'>
                         <h1>Workshops</h1>
                         {props.gitUser && props.gitRepo && props.instGitUser && props.instGitRepo &&
-                            <WorkshopsView gitUser={props.gitUser} gitRepo={props.gitRepo} instUser={props.instGitUser} instRepo={props.instGitRepo} />
+                            <WorkshopsView gitUser={props.gitUser} gitRepo={props.gitRepo} instUser={props.instGitUser} instRepo={props.instGitRepo} include={includedWorkshops} />
                         }
                     </div>
                 </div>

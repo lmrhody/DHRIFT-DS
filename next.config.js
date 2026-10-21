@@ -6,6 +6,8 @@ process.env.NEXT_PUBLIC_GITHUB_ACTIONS = process.env.GITHUB_ACTIONS || false;
 // DHRIFT is a static site, so this public read-only credential is embedded in the client bundle.
 process.env.NEXT_PUBLIC_GITHUB_READ_TOKEN = process.env.GITHUB_READ_TOKEN || false;
 process.env.NEXT_PUBLIC_ASSET_PREFIX = process.env.PAGES_PATH || '';
+// Set only by `bun run dev:local` (scripts/dev-local.mjs); empty in builds
+process.env.NEXT_PUBLIC_LOCAL_CONTENT_URL = process.env.LOCAL_CONTENT_URL || '';
 
 const nextConfig = {
     output: "export",

@@ -1,6 +1,20 @@
 export const ALIGNED_WORKSHOP_BRANCH = 'main';
 export const LEGACY_DYNAMIC_WORKSHOP_BRANCH = 'legacy-dynamic';
 
+// Local content mode (`bun run dev:local`): GitHub URLs for this owner are served from folders
+// on this computer by scripts/local-content-server.mjs. Unset in builds, so it never affects the live site.
+export const LOCAL_CONTENT_OWNER = 'local';
+const LOCAL_CONTENT_URL = process.env.NEXT_PUBLIC_LOCAL_CONTENT_URL;
+export const isLocalContentMode = Boolean(LOCAL_CONTENT_URL);
+
+export const localizeGitHubUrl = (url) => {
+  if (!isLocalContentMode || typeof url !== 'string') return url;
+  const match = url.match(/^https:\/\/(api\.github\.com\/repos|raw\.githubusercontent\.com)\/local\//i);
+  if (!match) return url;
+  const prefix = match[1].toLowerCase().startsWith('api') ? '/api/repos/' : '/raw/';
+  return `${LOCAL_CONTENT_URL}${prefix}${LOCAL_CONTENT_OWNER}/${url.slice(match[0].length)}`;
+};
+
 /**
  * Authenticate public GitHub API reads with DHRIFT's public read-only credential.
  * The static client exposes this token, so it must never grant private or write access.
@@ -159,7 +173,7 @@ export const createGitHubFetcher = (options = {}) => {
         : null;
 
       if (typeof args[0] === 'string' && isRawGitHubUrl(args[0])) {
-        const rawResponse = await fetch(args[0], { method: 'GET' });
+        const rawResponse = await fetch(localizeGitHubUrl(args[0]), { method: 'GET' });
         if (!rawResponse.ok) {
           throw new Error(`GitHub raw request failed (${rawResponse.status}): ${rawResponse.statusText}`);
         }
@@ -167,14 +181,17 @@ export const createGitHubFetcher = (options = {}) => {
       }
 
       if (rawUrl) {
-        const rawResponse = await fetch(rawUrl, { method: 'GET' });
+        const rawResponse = await fetch(localizeGitHubUrl(rawUrl), { method: 'GET' });
         if (rawResponse.ok) {
           return rawResponse.text();
         }
       }
 
-      const res = await fetch(...args, {
-        headers,
+      const [url, ...rest] = args;
+      const localUrl = localizeGitHubUrl(url);
+      const res = await fetch(localUrl, ...rest, {
+        // The GitHub token is only for GitHub, never for the local content server
+        headers: localUrl === url ? headers : undefined,
         method: 'GET',
       });
       const contentType = res.headers.get('content-type') || '';
@@ -208,8 +225,8 @@ export const createGitHubFetcher = (options = {}) => {
 
 const checkGitHubResource = async (user, repo) => {
   try {
-    const apiURL = `https://api.github.com/repos/${user}/${repo}`;
-    const headers = getGitHubHeaders();
+    const apiURL = localizeGitHubUrl(`https://api.github.com/repos/${user}/${repo}`);
+    const headers = isLocalContentMode && user === LOCAL_CONTENT_OWNER ? undefined : getGitHubHeaders();
 
     const response = await fetch(apiURL, {
       method: 'GET',

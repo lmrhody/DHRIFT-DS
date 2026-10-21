@@ -29,7 +29,7 @@ export default function Frontmatter({
   const projects = data.projects || {};
   const resources = data.resources || {};
   const goals = data.goals || [];
-  const theme = data.theme || 'teal'; // Workshop authors set theme in frontmatter
+  const theme = data.theme || 'default'; // Workshop authors set theme in frontmatter; 'default' is Digital Scholar black and blue
 
   const hasCredits = authors.length > 0 || editors.length > 0 || instructors.length > 0;
 

@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import useSWRImmutable from 'swr/immutable';
 import matter from 'gray-matter';
 import Link from 'next/link';
-import { ALIGNED_WORKSHOP_BRANCH, createGitHubFetcher } from '../utils/github';
+import { ALIGNED_WORKSHOP_BRANCH, createGitHubFetcher, localizeGitHubUrl } from '../utils/github';
 
 // Category colors based on programming language/topic
 const getCategoryColor = (language) => {
@@ -47,11 +47,16 @@ export default function WorkshopCard({ workshop, gitUser, gitRepo, instUser, ins
     if (parsedWorkshop.data.published === false || parsedWorkshop.data.published === 'false') return null;
   }
 
-  const { title, description, programming_language, 'cover title': coverTitle, 'estimated time': estimatedTime } = parsedWorkshop.data;
+  const { title, description, programming_language, logo, 'cover title': coverTitle, 'estimated time': estimatedTime } = parsedWorkshop.data;
   const category = getCategoryColor(programming_language);
   const displayTitle = coverTitle || title;
   const truncatedDesc = description?.length > 180 ? description.substring(0, 180) + '...' : description;
   const timeDisplay = Array.isArray(estimatedTime) ? estimatedTime[0] : estimatedTime;
+
+  // `logo` in a workshop's front matter: a path in the workshop repository (e.g. /images/logos/zotero.png) or a full URL
+  const logoSrc = logo && (/^https?:\/\//.test(logo)
+    ? logo
+    : localizeGitHubUrl(`https://raw.githubusercontent.com/${gitUser}/${gitRepo}/${ALIGNED_WORKSHOP_BRANCH}/${String(logo).replace(/^\/+/, '')}`));
 
   const workshopLink = `./v2?user=${gitUser}&repo=${gitRepo}&file=${workshop.name.split('.')[0]}&branch=${ALIGNED_WORKSHOP_BRANCH}&instUser=${instUser}&instRepo=${instRepo}`;
 
@@ -76,8 +81,15 @@ export default function WorkshopCard({ workshop, gitUser, gitRepo, instUser, ins
             )}
           </div>
 
-          {/* Title */}
-          <h3 className="workshop-card-title">{displayTitle}</h3>
+          {/* Title, with the project's logo when the workshop has one */}
+          <div className="workshop-card-heading">
+            {logoSrc && (
+              // Decorative: the title beside it names the project
+              // eslint-disable-next-line @next/next/no-img-element
+              <img className="workshop-card-logo" src={logoSrc} alt="" loading="lazy" />
+            )}
+            <h3 className="workshop-card-title">{displayTitle}</h3>
+          </div>
 
           {/* Description */}
           {truncatedDesc && (

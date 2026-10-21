@@ -25,7 +25,7 @@ import rehypeReact from 'rehype-react';
 import React, { createElement, Fragment } from 'react';
 import * as prod from 'react/jsx-runtime';
 import { sanitizeBeforeParse, dropLeadingSliceArtifacts, escapeCurlyForMDX } from '../../utils/sanitizer';
-import { LEGACY_DYNAMIC_WORKSHOP_BRANCH, normalizeKnownAssetUrl } from '../../utils/github';
+import { LEGACY_DYNAMIC_WORKSHOP_BRANCH, localizeGitHubUrl, normalizeKnownAssetUrl } from '../../utils/github';
 
 
 export default function ConvertMarkdown({ content, allUploads, workshopTitle, language, setCode, setEditorOpen, setAskToRun, gitUser, gitRepo, gitFile, instUser, instRepo, setJupyterSrc, segments }) {
@@ -79,7 +79,7 @@ export default function ConvertMarkdown({ content, allUploads, workshopTitle, la
             return <span className="image-error">Missing image source</span>;
         }
 
-        const builtURL = `https://raw.githubusercontent.com/${gitUser}/${gitRepo}/main${newProps.src}`;
+        const builtURL = localizeGitHubUrl(`https://raw.githubusercontent.com/${gitUser}/${gitRepo}/main${newProps.src}`);
 
         return (
             <span className="image-container">

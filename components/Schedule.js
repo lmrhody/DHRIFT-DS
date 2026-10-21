@@ -3,7 +3,7 @@ import { Accordion, AccordionDetails, AccordionSummary } from '@mui/material';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 import LaunchIcon from '@mui/icons-material/Launch';
 import Link from 'next/link';
-import { LEGACY_DYNAMIC_WORKSHOP_BRANCH } from '../utils/github';
+import { ALIGNED_WORKSHOP_BRANCH } from '../utils/github';
 
 export default function Schedule({ schedule, ...props }) {
   const [activeAccordion, setActiveAccordion] = useState(null);
@@ -79,7 +79,7 @@ export default function Schedule({ schedule, ...props }) {
                     <div key={`${event.title}-${event.time}`}>
                       <h3>{event.title}
                         {event.workshop &&
-                    <Link href={`dynamic/?user=${props.gitUser}&repo=${props.gitRepo}&file=${event.workshop}&branch=${LEGACY_DYNAMIC_WORKSHOP_BRANCH}&instUser=${props.instGitUser}&instRepo=${props.instGitRepo}`} prefetch={false}>
+                    <Link href={`v2/?user=${props.gitUser}&repo=${props.gitRepo}&file=${event.workshop}&branch=${ALIGNED_WORKSHOP_BRANCH}&instUser=${props.instGitUser}&instRepo=${props.instGitRepo}`} prefetch={false}>
                           <LaunchIcon className="launch-icon" />
                         </Link>
                         }

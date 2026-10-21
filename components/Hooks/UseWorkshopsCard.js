@@ -4,7 +4,7 @@ import useSWRImmutable from "swr/immutable";
 import { useState, useEffect } from "react";
 import matter from "gray-matter";
 import TrianglifyBasic from '../Backgrounds';
-import { LEGACY_DYNAMIC_WORKSHOP_BRANCH, createGitHubFetcher } from '../../utils/github';
+import { LEGACY_DYNAMIC_WORKSHOP_BRANCH, createGitHubFetcher, localizeGitHubUrl } from '../../utils/github';
 
 export default function UseWorkshopCard({ workshop, gitUser, gitRepo, instUser, instRepo }) {
     const [parsedWorkshop, setParsedWorkshop] = useState(null);
@@ -31,7 +31,7 @@ export default function UseWorkshopCard({ workshop, gitUser, gitRepo, instUser, 
 
     useEffect(() => {
         if (coverimage) {
-            setSrc(`https://raw.githubusercontent.com/${gitUser}/${gitRepo}/main/${coverimage}`);
+            setSrc(localizeGitHubUrl(`https://raw.githubusercontent.com/${gitUser}/${gitRepo}/main/${coverimage}`));
         } else {
             setSrc(`${process.env.NEXT_PUBLIC_ASSET_PREFIX || ''}/images/img${randomNum}.jpg`);
         }

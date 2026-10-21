@@ -22,8 +22,8 @@ export default function useAllWorkshops({ gitUser, gitRepo }) {
     useEffect(() => {
         const sourceWorkshops = knownWorkshops || allWorkshops;
         if (Array.isArray(sourceWorkshops)) {
-            // Remove workshops that start with 'DHRIFT_'
-            const filteredWorkshops = sourceWorkshops.filter(item => !item.name.startsWith('DHRIFT_') && item.name !== 'README.md');
+            // Keep only workshop files: skip the template, the README, and supporting files like tracks.yaml
+            const filteredWorkshops = sourceWorkshops.filter(item => item.name.endsWith('.md') && !item.name.startsWith('DHRIFT_') && item.name !== 'README.md');
             setWorkshops(filteredWorkshops);
             setTotalWorkshops(filteredWorkshops.length);
         }
