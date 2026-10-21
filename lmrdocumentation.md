@@ -190,3 +190,29 @@ This section is a running record of work on the project. Each entry explains wha
   - The site needs an internet connection, even when running locally, because it fetches workshop content from GitHub each time.
   - On the live site, GitHub requests use a special read-only access key. This computer doesn't have that key, so GitHub limits it to about 60 requests per hour. If pages stop loading content after a lot of clicking around, waiting an hour fixes it.
   - For working on the site's code, `bun run dev` is a better choice (see Part 3) because it updates the page automatically as files change. The steps above show the final, published version.
+
+### October 21, 2026: Planned a rebrand to Digital Scholar
+
+- **What:** Studied the Digital Scholar website (digitalscholar.org) and found every place in DHRIFT that carries its current branding. Then wrote out the steps needed to rebrand. No changes have been made to the site yet.
+- **Why:** To give DHRIFT the look, feel, icons, and information of Digital Scholar.
+- **What Digital Scholar's look is made of:**
+  - **Name and tagline:** "Digital Scholar" and "Making Methods Modern."
+  - **Colors:** Mostly white and light gray, near-black text, and one strong blue as the main color (`#2929cc`), with lighter blues for highlights.
+  - **Font:** "Circular XX." This is a commercial font that has to be paid for and licensed. It can't simply be copied from their site.
+  - **Icons:** Each of their projects (Omeka, Zotero, Tropy, PressForward, Sourcery) has its own simple, colorful geometric shape.
+  - **Footer information:** Partner organizations, a mailing address and email, and links to Bluesky, LinkedIn, Mastodon, and RSS.
+- **Where DHRIFT's current branding lives:** The colors are defined in one place, which makes them easy to change. The logos, links to dhrift.org, and the word "DHRIFT" are spread across about 15 files. The footer credits the NEH and the CUNY Graduate Center, and the site's web address is `app.dhrift.org`.
+- **Decisions needed before starting:** Permission to use Digital Scholar's brand, whether to keep the DHRIFT name, what to do about the font, how to keep credit for the original funders, and which web address to use.
+- **Result:** A step-by-step plan was drafted. Work will start once the decisions above are made, and each completed step will be logged below.
+
+### October 21, 2026: Created a separate branch for the Digital Scholar version
+
+- **What:** Created a new "branch" called `ds-rebrand` and switched to it.
+- **Why:** A branch is like a separate working copy of the project. Changes made on it don't affect the main version (`main`), which is what the live website is built from. This lets the Digital Scholar version be built and reviewed safely while the current site keeps running unchanged.
+- **Result:** All rebranding work will now happen on `ds-rebrand`. When the new version is ready and approved, it can be merged (combined) into `main`, which publishes it. Until then, the live site is untouched. The branch exists only on this computer for now. It will appear on GitHub once it is "pushed" (uploaded).
+
+### October 21, 2026: Saved the documentation and uploaded the branch to GitHub
+
+- **What:** Saved the latest version of this document as a "commit" on the `ds-rebrand` branch, then "pushed" (uploaded) the branch to GitHub.
+- **Why:** A commit is a permanent, labeled snapshot of the project's files, like saving a version of a document with a note about what changed. Pushing copies those snapshots to GitHub, so the work is backed up and others can see it.
+- **Result:** The `ds-rebrand` branch now exists on GitHub at github.com/lmrhody/DHRIFT-DS. It holds this documentation, and the live site is still unchanged.
